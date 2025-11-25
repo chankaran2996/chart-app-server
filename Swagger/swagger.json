@@ -1,0 +1,57 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Chart-app API",
+    "description": "\nAPI for Mapats testing suite.\n\n**Usage Instructions:**\n\n1. First, use the **Login** endpoint (`POST /api/auth/login`) by providing your email and password.\n2. The login response will return a JWT token.\n3. Copy the token value (without quotes).\n4. For all subsequent API calls requiring authorization, add this token in the **Authorization** header as:\n\n`Bearer <token>`\n\nMake sure to replace `<token>` with the actual token string returned by login.\n\nExample Header:\nAuthorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\n\n",
+    "contact": {
+      "name": "API Support",
+      "email": "chandrasekaran2996@gmail.com"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          ""
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          ""
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "",
+      "description": " endpoints"
+    }
+  ]
+}
