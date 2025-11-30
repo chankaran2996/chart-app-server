@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import connectDB from './Database/connection.js';
 
 dotenv.config();
 
@@ -37,5 +38,6 @@ app.get('/api/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
+    connectDB();
     console.log(`Server is running on port ${PORT}`);
 });
