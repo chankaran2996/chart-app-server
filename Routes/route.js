@@ -2,7 +2,9 @@ import express from 'express';
 import { 
     loginUser,
     logoutUser,
-    registerUser
+    registerUser,
+    updateUserProfile,
+    updateUserProfilePic
  } from '../Controllers/authController.js';
 
 
@@ -22,6 +24,9 @@ Router.post('/login', loginUser);
 Router.post('/logout', logoutUser);
 
 // PUT Method route
+Router.put('/profile', updateUserProfile);
+
+Router.put('/profile-pic', updateUserProfilePic);
 
 
 // DELETE Method route

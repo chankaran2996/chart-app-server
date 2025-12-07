@@ -1,3 +1,4 @@
+import cloudinary from "../Config/cloudnary.js";
 import User from "../Models/userModel.js";
 import generateToken from "../Utils/generateToken.js";
 
@@ -16,7 +17,6 @@ export const registerUser = async (req, res) => {
       token
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -53,4 +53,52 @@ export const logoutUser = (req, res) => {
     sameSite: 'strict',
   });
   res.status(200).json({ message: "User logged out successfully" });
+};
+
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const { fullName, profilePic, email } = req.body;
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    user.fullName = fullName || user.fullName;
+    user.profilePic = profilePic || user.profilePic;
+    user.email = email || user.email;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { fullName: user.fullName, profilePic: user.profilePic, email: user.email },
+      { new: true }
+    );
+    res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const updateUserProfilePic = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+    if (!profilePic) {
+      return res.status(400).json({ message: "Profile picture is required" });
+    }
+    const result = await cloudinary.uploader.upload(profilePic, { folder: "profile_pics" });
+    if (!result) {
+      return res.status(500).json({ message: "Cloudinary upload error" });
+    }
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const updatedPic = await User.findByIdAndUpdate(
+        req.user._id,
+        { profilePic: result.secure_url },
+        { new: true }
+      );
+      res.status(200).json({ message: "Profile picture updated successfully", user: updatedPic });
+    
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
 };
