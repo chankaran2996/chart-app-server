@@ -2,8 +2,11 @@ import express from 'express';
 import { 
     loginUser,
     logoutUser,
-    registerUser
+    registerUser,
+    updateUserProfile,
+    updateUserProfilePic
  } from '../Controllers/authController.js';
+import { protect } from '../Middleware/authMiddleware.js';
 
 
 const Router = express.Router();
@@ -22,6 +25,9 @@ Router.post('/login', loginUser);
 Router.post('/logout', logoutUser);
 
 // PUT Method route
+Router.put('/profile',protect, updateUserProfile);
+
+Router.put('/profile-pic', protect, updateUserProfilePic);
 
 
 // DELETE Method route
