@@ -162,6 +162,9 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -198,6 +201,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -209,8 +215,32 @@
           "Auth"
         ]
       }
+    },
+    "/api/v1/messages/contacts": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "tags": [
+          "Messages"
+        ]
+      }
     }
   },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
   "tags": [
     {
       "name": "",
@@ -219,6 +249,19 @@
     {
       "name": "Auth",
       "description": "Auth endpoints"
+    },
+    {
+      "name": "Messages",
+      "description": "Messages endpoints"
     }
-  ]
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "Bearer ",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
 }
