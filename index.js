@@ -7,6 +7,10 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import connectDB from './Database/connection.js';
 import Router from './Routes/route.js';
+import MessageRoute from './Routes/messageReoute.js';
+import cookieParser from 'cookie-parser';
+
+
 
 dotenv.config();
 
@@ -14,6 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Required for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +44,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use("/api/v1/auth", Router);
+
+app.use("/api/v1/messages", MessageRoute);
 
 // Start the server
 app.listen(PORT, () => {
