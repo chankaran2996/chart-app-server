@@ -5,18 +5,18 @@ export const protect = async (req, res, next) => {
   try {
     let token;
 
-    console.log("Cookies received:", req);
+    // console.log("Cookies received:", req);
 
     // 1️⃣ Check Cookie token
     if (req.cookies?.token) {
       token = req.cookies.token;
-      console.log("Token found in cookies:", token);
+    //   console.log("Token found in cookies:", token);
     }
 
     // 2️⃣ Check Authorization Header (Swagger / Postman)
     else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
-      console.log("Token found in Authorization header:", token);
+    //   console.log("Token found in Authorization header:", token);
     }
 
     // 3️⃣ If no token found
@@ -31,7 +31,7 @@ export const protect = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);
+    // console.log("Decoded token:", decoded);
 
     // 5️⃣ Find user & remove password
     req.user = await User.findById(decoded.id).select("-password");

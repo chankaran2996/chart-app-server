@@ -8,7 +8,6 @@ import { fileURLToPath } from 'url';
 import connectDB from './Database/connection.js';
 import Router from './Routes/route.js';
 import MessageRoute from './Routes/messageReoute.js';
-import { protect } from './Middleware/authMiddleware.js';
 import cookieParser from 'cookie-parser';
 
 
@@ -46,7 +45,7 @@ app.get('/api/health', (req, res) => {
 
 app.use("/api/v1/auth", Router);
 
-app.use("/api/v1/messages", protect, MessageRoute);
+app.use("/api/v1/messages", MessageRoute);
 
 // Start the server
 app.listen(PORT, () => {
