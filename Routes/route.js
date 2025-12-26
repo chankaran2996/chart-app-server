@@ -14,7 +14,7 @@ const Router = express.Router();
 
 // GET Method route
 
-
+Router.get("/check", protect, (req, res) => res.status(200).json(req.user));
 
 // POST Method route
 
